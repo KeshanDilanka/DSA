@@ -1,29 +1,56 @@
-package dsa;
 
-
-
-public class SinglyLinkedList {
-
+class SinglyLinkedList {
     class Node {
         int data;
         Node next;
-        Node(int d) { data = d; }
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
     }
 
     Node head;
 
-    void insert(int data) {
+    public void insert(int data) {
         Node newNode = new Node(data);
-        newNode.next = head;
-        head = newNode;
-    }
 
-    void display() {
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
         Node temp = head;
-        while (temp != null) {
-            System.out.print(temp.data + " ");
+        while (temp.next != null) {
             temp = temp.next;
         }
+        temp.next = newNode;
     }
-    
+
+    public void delete(int key) {
+        if (head == null) return;
+
+        if (head.data == key) {
+            head = head.next;
+            return;
+        }
+
+        Node temp = head;
+        while (temp.next != null && temp.next.data != key) {
+            temp = temp.next;
+        }
+
+        if (temp.next != null) {
+            temp.next = temp.next.next;
+        }
+    }
+
+    public void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
 }
